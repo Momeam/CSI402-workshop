@@ -1,58 +1,48 @@
-@model IEnumerable<Easystay.ViewModels.UserViewModel>
+@model IEnumerable<test.Models.User>
+
+
 @{
-    ViewData["Title"] = "รายชื่อผู้ใช้งาน | Easy Stay";
+    ViewData["Title"] = "User List";
 }
 
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-primary">รายชื่อผู้ใช้งานในระบบ (Userlist)</h2>
-        <a asp-controller="Account" asp-action="AddUser" class="btn btn-primary fw-bold">+ เพิ่มผู้ใช้งานใหม่</a>
-    </div>
+<div class="container mt-4">
+    <h2>รายชื่อผู้ใช้งานทั้งหมด (User List)</h2>
 
-    <div class="card shadow-sm">
-        <div class="card-body p-0">
-            <div class="table-responsive">
-              
-                <table class="table table-bordered table-striped table-hover mb-0">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ลำดับ</th>
-                            <th>ชื่อ-นามสกุล</th>
-                            <th>อีเมล</th>
-                            <th>เบอร์โทรศัพท์</th>
-                            <th>สิทธิ์ผู้ใช้งาน</th>
-                            <th>รหัสผ่าน</th> 
-                            <th class="text-center">จัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{ int index = 1; }
-                        @foreach (var user in Model)
-                        {
-                            <tr>
-                                <td>@index</td>
-                                <td>@user.FullName</td>
-                                <td>@user.Email</td>
-                                <td>@user.PhoneNumber</td>
-                                <td>
-                                    <span class="badge bg-info text-dark">@user.Role</span>
-                                </td>
-                                <td>@user.Password</td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-warning">แก้ไข</button>
-                                    <button class="btn btn-sm btn-danger">ลบ</button>
-                                </td>
-                            </tr>
-                            index++;
-                        }
-                    </tbody>
-                    <tfoot class="table-light">
-                        <tr>
-                            <th colspan="6" class="text-end">รวมทั้งหมด @Model.Count() รายการ</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
+   
+    <a asp-action="Register" asp-controller="Account" class="btn btn-success mb-3">
+        + เพิ่มผู้ใช้งานใหม่
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>รหัสผู้ใช้ (User ID)</th>
+                <th>ชื่อผู้ใช้ (Username)</th>
+                <th>อีเมล (Email)</th>
+                <th>สิทธิ์ผู้ใช้งาน (Role)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                // ใช้ลูป foreach เพื่อดึงข้อมูลแต่ละรายการในฐานข้อมูลมาแสดงทีละแถว
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserId</td>
+                        <td>@user.Username</td>
+                        <td>@user.Email</td>
+                        <td>@user.Role</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                // ถ้าฐานข้อมูลยังว่างเปล่า ให้แสดงข้อความนี้
+                <tr>
+                    <td colspan="4" class="text-center text-muted">ยังไม่มีข้อมูลผู้ใช้งานในระบบ</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
