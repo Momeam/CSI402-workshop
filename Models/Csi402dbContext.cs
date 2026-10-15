@@ -24,6 +24,8 @@ public partial class Csi402dbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<LoginHistory> LoginHistories { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseMySql("server=localhost;port=3306;database=csi402db;user=root;password=1234", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.46-mysql"));
@@ -98,6 +100,24 @@ public partial class Csi402dbContext : DbContext
             entity.Property(e => e.PasswordHash).HasMaxLength(255);
             entity.Property(e => e.Role).HasMaxLength(20);
             entity.Property(e => e.Username).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<LoginHistory>(entity =>
+        {
+            entity.HasKey(e => e.LoginHistoryId).HasName("PRIMARY");
+
+            entity.ToTable("login_history");
+
+            entity.HasIndex(e => e.UserId, "UserID");
+            entity.HasIndex(e => e.LoggedInAtUtc, "LoggedInAtUtc");
+
+            entity.Property(e => e.LoginHistoryId).HasColumnName("LoginHistoryID");
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.Username).HasMaxLength(50);
+            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.LoggedInAtUtc)
+                .HasColumnType("datetime(6)")
+                .HasColumnName("LoggedInAtUTC");
         });
 
         OnModelCreatingPartial(modelBuilder);

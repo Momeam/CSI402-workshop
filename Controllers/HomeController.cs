@@ -57,10 +57,17 @@ public IActionResult Lab9_1()
     var Student = (from s in _db.Users select s).ToList();
     return View(Student);    
 }
-    public IActionResult Index(string email)
+    public IActionResult Index()
     {
-        ViewBag.loggedEmail = email;
-        return View();
+        var userId = HttpContext.Session.GetString("LoggedInUserId");
+        if (!int.TryParse(userId, out var parsedUserId))
+        {
+            return View();
+        }
+
+        var user = _db.Users.FirstOrDefault(u => u.UserId == parsedUserId);
+
+        return View(user);
     }
 
     public IActionResult Privacy()

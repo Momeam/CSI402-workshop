@@ -73,22 +73,23 @@
 </div> *@
 
 
+@model test.Models.User
+
 @{
     ViewData["Title"] = "หน้าแรก | Easy Stay";
 }
 
 <div class="container mt-5">
     
-    <!-- 🟢 ส่วนที่เขียนเพิ่ม: ตรวจสอบและแสดงผลข้อมูลการล็อกอิน -->
-    @if (ViewBag.LoggedEmail != null)
+    @if (Model != null)
     {
         <div class="alert alert-success text-center shadow-sm mb-5">
             <h3 class="fw-bold text-success">เข้าสู่ระบบสำเร็จ! 🎉</h3>
-            <p class="mb-0 fs-5">ยินดีต้อนรับผู้ใช้งาน: <strong>@ViewBag.LoggedEmail</strong></p>
+            <p class="mb-1 fs-5">ยินดีต้อนรับ <strong>@Model.Username</strong></p>
+            <p class="mb-0">อีเมล: @Model.Email | รหัสผู้ใช้: @Model.UserId</p>
         </div>
     }
     
-    <!-- โค้ดหน้า Index เดิมของคุณอยู่ด้านล่างนี้ -->
     <div class="text-center">
         <h1 class="display-4 fw-bold text-primary">Easy Stay</h1>
         <p class="lead">ยินดีต้อนรับสู่ระบบจองที่พักออนไลน์ที่ดีที่สุด</p>

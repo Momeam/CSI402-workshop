@@ -5,6 +5,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddDbContext<Csi402dbContext>(
     option => option.UseMySql(
@@ -16,6 +23,23 @@ builder.Services.AddDbContext<Csi402dbContext>(
 
 var app = builder.Build(); 
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<Csi402dbContext>();
+    db.Database.ExecuteSqlRaw("""
+        CREATE TABLE IF NOT EXISTS `login_history` (
+            `LoginHistoryID` int NOT NULL AUTO_INCREMENT,
+            `UserID` int NULL,
+            `Username` varchar(50) NOT NULL,
+            `Email` varchar(100) NOT NULL,
+            `LoggedInAtUTC` datetime(6) NOT NULL,
+            PRIMARY KEY (`LoginHistoryID`),
+            KEY `UserID` (`UserID`),
+            KEY `LoggedInAtUTC` (`LoggedInAtUTC`)
+        ) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+        """);
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -26,6 +50,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

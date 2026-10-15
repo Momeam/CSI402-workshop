@@ -4,7 +4,7 @@ using System.Linq;
 using test.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Easystay.Controllers
+namespace test.Controllers
 {
     public class AccountController : Controller
     {
@@ -15,9 +15,18 @@ namespace Easystay.Controllers
             _db = db;
         }   
 
+    [HttpGet]
+    public IActionResult Register()
+    {
+        return View();
+    }
+
     [HttpPost]
     public IActionResult Register(User data)
 {
+    data.Role = "Customer";
+    ModelState.Remove(nameof(data.Role));
+
     // 1. เช็คว่ากรอกรหัสผ่านหรือไม่
     if(!string.IsNullOrEmpty(data.PasswordHash))
     {
@@ -33,12 +42,12 @@ namespace Easystay.Controllers
                 newUser.PasswordHash = data.PasswordHash;
                 newUser.Username = data.Username;
                 newUser.Email = data.Email;
-                newUser.Role = "Customer";
+                newUser.Role = data.Role;
 
                 _db.Users.Add(newUser);
                 _db.SaveChanges();
 
-                return RedirectToAction("Userlist");
+                return RedirectToAction(nameof(Login));
             }
             else
             {
@@ -61,9 +70,9 @@ namespace Easystay.Controllers
     }
 }
   
-        // ==========================================
+      
         // 1. ระบบเข้าสู่ระบบ (Login)
-        // ==========================================
+        
         [HttpGet]
         public IActionResult Login()
         {
@@ -73,7 +82,31 @@ namespace Easystay.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            return RedirectToAction("Index", "Home", new {email = model.Email});
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = _db.Users.FirstOrDefault(u =>
+                u.Email == model.Email && u.PasswordHash == model.Password);
+
+            if (user == null)
+            {
+                ViewBag.Status = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+                return View(model);
+            }
+
+            _db.LoginHistories.Add(new LoginHistory
+            {
+                UserId = user.UserId,
+                Username = user.Username ?? string.Empty,
+                Email = user.Email ?? string.Empty,
+                LoggedInAtUtc = DateTime.UtcNow
+            });
+            _db.SaveChanges();
+
+            HttpContext.Session.SetString("LoggedInUserId", user.UserId?.ToString() ?? string.Empty);
+            return RedirectToAction(nameof(LoginHistory));
         }
 
         
@@ -97,14 +130,36 @@ namespace Easystay.Controllers
         }
 
         
-        // ==========================================
+     
         // 5. หน้าแสดงรายชื่อผู้ใช้งาน (Userlist)
-        // ==========================================
+        
        [HttpGet]
         public IActionResult Userlist()
         {
+            var userId = HttpContext.Session.GetString("LoggedInUserId");
+            if (!int.TryParse(userId, out _))
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
             var allUser = _db.Users.ToList();
             return View(allUser);
+        }
+
+        [HttpGet]
+        public IActionResult LoginHistory()
+        {
+            var userId = HttpContext.Session.GetString("LoggedInUserId");
+            if (!int.TryParse(userId, out _))
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+            var loginHistory = _db.LoginHistories
+                .OrderByDescending(entry => entry.LoggedInAtUtc)
+                .ToList();
+
+            return View(loginHistory);
         }
     }
 }

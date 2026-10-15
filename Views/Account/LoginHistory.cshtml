@@ -1,0 +1,43 @@
+@model IEnumerable<test.Models.LoginHistory>
+
+@{
+    ViewData["Title"] = "ประวัติการเข้าสู่ระบบ";
+}
+
+<div class="container mt-4">
+    <h2>ประวัติผู้ที่เข้าสู่ระบบ</h2>
+    <p class="text-muted">แสดงเฉพาะรายการเข้าสู่ระบบสำเร็จ โดยเรียงจากรายการล่าสุด</p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>รหัสรายการ</th>
+                <th>รหัสผู้ใช้</th>
+                <th>ชื่อผู้ใช้</th>
+                <th>อีเมล</th>
+                <th>เวลาเข้าสู่ระบบ (UTC)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                @foreach (var entry in Model)
+                {
+                    <tr>
+                        <td>@entry.LoginHistoryId</td>
+                        <td>@entry.UserId</td>
+                        <td>@entry.Username</td>
+                        <td>@entry.Email</td>
+                        <td>@entry.LoggedInAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center text-muted">ยังไม่มีประวัติการเข้าสู่ระบบ</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
