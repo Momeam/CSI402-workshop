@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Booking Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        /* กำหนดสี Theme ตามภาพเรฟ */
+        .bg-booking-blue { background-color: #78d4d0; }
+        .bg-booking-yellow { background-color: #ffb700; }
+        .text-booking-blue { color: #003b95; }
+        .menu-link { color: white; text-decoration: none; padding: 10px 15px; border-radius: 20px; }
+        .menu-link:hover { background-color: rgba(255,255,255,0.1); }
+        .menu-link.active { border: 1px solid white; background-color: rgba(255,255,255,0.1); }
+        .search-container { margin-top: -30px; position: relative; z-index: 10; }
+    </style>
+</head>
+<body>
+    <!-- HEADER สีน้ำเงิน -->
+    <header class="bg-booking-blue text-white pb-3">
+        <!-- Top Navbar -->
+        <div class="container pt-3 d-flex justify-content-between align-items-center">
+            <h3 class="fw-bold mb-0">Ez Hotel   </h3>
+            <div class="d-flex gap-3 align-items-center">
+                <span>THB</span>
+                <span>ลงทะเบียนที่พักของท่าน</span>
+                <!-- ปุ่มสมัครสมาชิก -->
+<a asp-controller="Account" asp-action="Register" class="btn btn-light fw-bold mx-1">สมัคร</a>
+
+<!-- ปุ่มเข้าสู่ระบบ -->
+<a asp-controller="Account" asp-action="Login" class="btn btn-light fw-bold mx-1">เข้าสู่ระบบ</a>
+            </div>
+        </div>
+
+        <!-- Sub Navbar (เมนูประเภทการจอง) -->
+        <div class="container mt-4 d-flex gap-2">
+            <a href="/" class="menu-link active">🛏️ การเข้าพัก</a>
+            <a href="/Home/FlightBooking" class="menu-link"> เที่ยวบิน</a>
+            <a href="#" class="menu-link"> เที่ยวบิน + โรงแรม</a>
+            <a href="#" class="menu-link"> รถเช่า</a>
+            <a href="#" class="menu-link"> สิ่งที่น่าสนใจ</a>
+        </div>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

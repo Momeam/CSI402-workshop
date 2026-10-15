@@ -1,0 +1,15 @@
+@model test.Models.User
+
+<form asp-action="Lab9" asp-controller="Home">
+    UserID <input type="text" asp-for="UserId" class="form-control" /><br />
+    Password <input type="password" asp-for="PasswordHash" class="form-control" /><br>
+    Username <input type="text" asp-for="Username" class="form-control" /> <br />
+    Email <input type="email" asp-for="Email" class="form-control" /> <br />
+    @if (ViewBag.Status != null)
+    {
+        <div class="alert alert-danger" style="color: red; margin-top: 10px;">
+            <strong>แจ้งเตือน:</strong> @ViewBag.Status
+        </div>
+    }
+    <button type="submit">submit</button>
+</form>

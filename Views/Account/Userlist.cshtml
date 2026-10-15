@@ -1,0 +1,58 @@
+@model IEnumerable<Easystay.ViewModels.UserViewModel>
+@{
+    ViewData["Title"] = "รายชื่อผู้ใช้งาน | Easy Stay";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">รายชื่อผู้ใช้งานในระบบ (Userlist)</h2>
+        <a asp-controller="Account" asp-action="AddUser" class="btn btn-primary fw-bold">+ เพิ่มผู้ใช้งานใหม่</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+              
+                <table class="table table-bordered table-striped table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>ชื่อ-นามสกุล</th>
+                            <th>อีเมล</th>
+                            <th>เบอร์โทรศัพท์</th>
+                            <th>สิทธิ์ผู้ใช้งาน</th>
+                            <th>รหัสผ่าน</th> 
+                            <th class="text-center">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int index = 1; }
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@index</td>
+                                <td>@user.FullName</td>
+                                <td>@user.Email</td>
+                                <td>@user.PhoneNumber</td>
+                                <td>
+                                    <span class="badge bg-info text-dark">@user.Role</span>
+                                </td>
+                                <td>@user.Password</td>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-warning">แก้ไข</button>
+                                    <button class="btn btn-sm btn-danger">ลบ</button>
+                                </td>
+                            </tr>
+                            index++;
+                        }
+                    </tbody>
+                    <tfoot class="table-light">
+                        <tr>
+                            <th colspan="6" class="text-end">รวมทั้งหมด @Model.Count() รายการ</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

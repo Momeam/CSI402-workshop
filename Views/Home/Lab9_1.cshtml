@@ -1,0 +1,27 @@
+@model IEnumerable<test.Models.User>
+
+
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>รหัสผู้ใช้ (UserID)</th>
+            <th>ชื่อผู้ใช้ (Username)</th>
+            <th>อีเมล (Email)</th>
+            <th>สิทธิ์ผู้ใช้งาน (Role)</th>
+        </tr>
+    </thead>
+    <tbody>
+     
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ระบบจัดการสำหรับพนักงาน</title>
+    <!-- นำเข้า Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body { background-color: #f4f6f9; }
+        /* สไตล์สำหรับ Sidebar พื้นหลังสีเข้ม */
+        .sidebar { min-height: 100vh; background-color: #212529; color: white; }
+        .sidebar a { color: #adb5bd; text-decoration: none; padding: 10px 15px; display: block; }
+        .sidebar a:hover, .sidebar a.active { background-color: #343a40; color: white; border-radius: 5px; }
+        .top-navbar { background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- แถบเมนูด้านข้าง (Sidebar) ใช้พื้นที่ 2/12 -->
+            <nav class="col-md-2 d-none d-md-block sidebar py-4">
+                <h4 class="text-center text-white mb-4">SPU Admin</h4>
+                <ul class="nav flex-column px-2">
+                    <li class="nav-item mb-1">
+                        <a href="/Home/EmployeeDashboard" class="nav-link active"> ภาพรวม (Dashboard)</a>
+                    </li>
+                    <li class="nav-item mb-1">
+                        <a href="#" class="nav-link"> จัดการการจองห้องพัก</a>
+                    </li>
+                    <li class="nav-item mb-1">
+                        <a href="#" class="nav-link"> จัดการตั๋วเครื่องบิน</a>
+                    </li>
+                    <li class="nav-item mb-1">
+                        <a href="#" class="nav-link">จัดการข้อมูลลูกค้า</a>
+                    </li>
+                </ul>
+                <div class="position-absolute bottom-0 w-100 p-3" style="left: 0;">
+                    <hr class="text-secondary">
+                    <a href="/" class="nav-link text-danger"> ออกจากระบบ</a>
+                </div>
+            </nav>
+
+                <!--  (Main Content)  10/12 -->
+            <main role="main" class="col-md-10 ms-sm-auto px-0">
+                <!-- (Top Navbar) -->
+                <header class="top-navbar py-3 px-4 d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0 text-muted">@ViewData["Title"]</h5>
+                    <div class="d-flex align-items-center">
+                        <span class="me-3">สวัสดี, <strong>พนักงาน</strong></span>
+                        <img src="https://ui-avatars.com/api/?name=Staff&background=0D8ABC&color=fff" class="rounded-circle" width="35" alt="Profile">
+                    </div>
+                </header>
+
+                <!-- พื้นที่สำหรับใส่เนื้อหาของแต่ละหน้า (จะถูกแทรกตรงนี้) -->
+                <div class="px-4 pb-4">
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- import Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

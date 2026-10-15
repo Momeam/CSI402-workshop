@@ -1,0 +1,97 @@
+﻿@* @{
+
+
+
+
+
+
+
+
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layoutprivacy";
+}
+
+@* <div class="bg-booking-blue text-white pt-5 pb-5"> 
+    <div class="container">
+        <div class="row align-items-center pb-4">
+            <!-- ข้อความด้านซ้าย -->
+            <div class="col-md-7">
+                <h1 class="display-5 fw-bold">เที่ยวบินราคาถูกลงสำหรับ<br>สมาชิกเท่านั้น</h1>
+                <p class="fs-5 mt-3">ประหยัดยิ่งขึ้นเมื่อจองเที่ยวบินที่มีป้าย Genius</p>
+                <button class="btn btn-primary mt-2">เข้าสู่ระบบหรือสมัครแอคเคาท์</button>
+            </div>
+            <!-- รูปภาพด้านขวา (จำลอง) -->
+            <div class="col-md-5 text-end">
+                <div class="bg-primary text-white p-3 rounded shadow d-inline-block rotate-n-15">
+                    <h3 class="fw-bold fst-italic">Genius</h3>
+                    <p class="mb-0">✈️</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ส่วนกล่องค้นหาสีเหลือง (ลอยทับ Banner) -->
+<div class="container search-container mb-5">
+    <div class="bg-booking-yellow p-1 rounded-2 shadow">
+        <form class="bg-white rounded-1 d-flex p-1">
+            <div class="row g-1 w-100 align-items-center">
+                <!-- จุดหมาย -->
+                <div class="col-md-4 border-end">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-0">🛏️</span>
+                        <input type="text" class="form-control border-0" placeholder="ท่านจะไปที่ไหน?">
+                    </div>
+                </div>
+                <!-- วันที่ -->
+                <div class="col-md-3 border-end">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-0">📅</span>
+                        <input type="text" class="form-control border-0" placeholder="วันเช็คอิน — วันเช็คเอาท์">
+                    </div>
+                </div>
+                <!-- จำนวนผู้เข้าพัก -->
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-0">👤</span>
+                        <select class="form-select border-0">
+                            <option>ผู้ใหญ่ 2 · เด็ก 0 · 1 ห้อง</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- ปุ่มค้นหา -->
+                <div class="col-md-2">
+                    <a href="/Home/Booking" class="btn btn-primary w-100 fw-bold fs-5 h-100">ค้นหา</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="mt-2 text-dark">
+        <input type="checkbox" id="work" class="me-1"> <label for="work" class="me-3">เดินทางไปทำงาน</label>
+        <input type="checkbox" id="flight" class="me-1"> <label for="flight">เพิ่มเที่ยวบินในการค้นหาของฉัน</label>
+    </div>
+</div> *@
+
+
+@{
+    ViewData["Title"] = "หน้าแรก | Easy Stay";
+}
+
+<div class="container mt-5">
+    
+    <!-- 🟢 ส่วนที่เขียนเพิ่ม: ตรวจสอบและแสดงผลข้อมูลการล็อกอิน -->
+    @if (ViewBag.LoggedEmail != null)
+    {
+        <div class="alert alert-success text-center shadow-sm mb-5">
+            <h3 class="fw-bold text-success">เข้าสู่ระบบสำเร็จ! 🎉</h3>
+            <p class="mb-0 fs-5">ยินดีต้อนรับผู้ใช้งาน: <strong>@ViewBag.LoggedEmail</strong></p>
+        </div>
+    }
+    
+    <!-- โค้ดหน้า Index เดิมของคุณอยู่ด้านล่างนี้ -->
+    <div class="text-center">
+        <h1 class="display-4 fw-bold text-primary">Easy Stay</h1>
+        <p class="lead">ยินดีต้อนรับสู่ระบบจองที่พักออนไลน์ที่ดีที่สุด</p>
+    </div>
+
+</div>

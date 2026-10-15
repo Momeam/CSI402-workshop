@@ -1,0 +1,130 @@
+@{
+    ViewData["Title"] = "จองตั๋วเครื่องบิน";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5 mb-5">
+    <!-- Breadcrumb นำทาง -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">หน้าแรก</a></li>
+            <li class="breadcrumb-item"><a href="#">ค้นหาเที่ยวบิน</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ข้อมูลผู้โดยสารและการชำระเงิน</li>
+        </ol>
+    </nav>
+
+    <h2 class="fw-bold mb-4">รายละเอียดผู้โดยสาร</h2>
+
+    <div class="row">
+        <!-- ฝั่งซ้าย: ฟอร์มกรอกข้อมูลผู้โดยสาร (8/12) -->
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white fw-bold fs-5 text-booking-blue">
+                    ✈️ ผู้โดยสารคนที่ 1 (ผู้ใหญ่)
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">คำนำหน้า</label>
+                                <select class="form-select">
+                                    <option>นาย</option>
+                                    <option>นาง</option>
+                                    <option>นางสาว</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">ชื่อจริง (ภาษาอังกฤษ)</label>
+                                <input type="text" class="form-control" placeholder="First Name" required>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label">นามสกุล (ภาษาอังกฤษ)</label>
+                                <input type="text" class="form-control" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">วันเกิด</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">สัญชาติ</label>
+                                <select class="form-select">
+                                    <option>ไทย (Thailand)</option>
+                                    <option>อื่นๆ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">หมายเลขบัตรประชาชน / พาสปอร์ต</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ส่วนข้อมูลติดต่อ -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white fw-bold fs-5">
+                    📞 ข้อมูลผู้ติดต่อ
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">อีเมล</label>
+                            <input type="email" class="form-control" placeholder="example@email.com" required>
+                            <div class="form-text">เราจะส่ง e-ticket ไปที่อีเมลนี้</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">เบอร์โทรศัพท์</label>
+                            <input type="tel" class="form-control" placeholder="08X-XXX-XXXX" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ฝั่งขวา: สรุปรายละเอียดเที่ยวบิน (4/12) -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-warning mb-3">
+                <div class="card-header bg-booking-yellow fw-bold">
+                    สรุปการเดินทาง
+                </div>
+                <div class="card-body">
+                    <h6 class="text-muted mb-1">เที่ยวบินขาไป (Direct)</h6>
+                    <h5 class="fw-bold">กรุงเทพฯ (BKK) ✈️ โตเกียว (NRT)</h5>
+                    <p class="small mb-2">สายการบิน SPU Airlines (SPU-1402)</p>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-1 text-muted small">
+                        <span>ออกเดินทาง:</span>
+                        <span>ถึงที่หมาย:</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 fw-bold">
+                        <span>08:30 (BKK)</span>
+                        <span>16:30 (NRT)</span>
+                    </div>
+                    <p class="mb-1 small">🧳 น้ำหนักกระเป๋า: <strong>20 กก.</strong></p>
+                    <p class="mb-0 small">💺 ชั้นโดยสาร: <strong>ชั้นประหยัด (Economy)</strong></p>
+                </div>
+                
+                <div class="card-body border-top bg-light">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">ราคาผู้ใหญ่ (1 ท่าน)</span>
+                        <span>฿ 12,500</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">ภาษีสนามบินและค่าธรรมเนียม</span>
+                        <span>฿ 1,250</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fs-5 fw-bold">ราคารวมสุทธิ</span>
+                        <span class="fs-4 fw-bold text-danger">฿ 13,750</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary w-100 fs-5 py-3 fw-bold shadow-sm">ดำเนินการชำระเงิน</button>
+        </div>
+    </div>
+</div>

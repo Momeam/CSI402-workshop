@@ -1,0 +1,47 @@
+@model Easystay.ViewModels.AddUserViewModel
+@{
+    ViewData["Title"] = "เพิ่มผู้ใช้งานระบบ | Easy Stay";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <h4 class="card-header bg-primary text-white text-center py-3">เพิ่มผู้ใช้งานใหม่ (Add User)</h4>
+                <div class="card-body p-4">
+                    <form asp-controller="Account" asp-action="AddUser" method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">ชื่อ-นามสกุล</label>
+                            <input asp-for="FullName" type="text" class="form-control" placeholder="ชื่อ-นามสกุล" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">อีเมล</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="อีเมลผู้ใช้งาน" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">เบอร์โทรศัพท์</label>
+                            <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="เบอร์โทรศัพท์" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">รหัสผ่านชั่วคราว</label>
+                            <input asp-for="Password" type="text" class="form-control" placeholder="ตั้งรหัสผ่านให้ผู้ใช้ใหม่" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">สิทธิ์การใช้งาน (Role)</label>
+                            <select asp-for="Role" class="form-select" required>
+                                <option value="">-- เลือกสิทธิ์การใช้งาน --</option>
+                                <option value="Admin">ผู้ดูแลระบบ (Admin)</option>
+                                <option value="Staff">พนักงาน (Staff)</option>
+                                <option value="Customer">ลูกค้า (Customer)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 fw-bold">บันทึกข้อมูลผู้ใช้</button>
+                        <a asp-action="Userlist" class="btn btn-outline-secondary w-100 fw-bold mt-2">กลับไปหน้ารายชื่อ</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

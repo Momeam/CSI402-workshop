@@ -1,0 +1,40 @@
+@model Easystay.ViewModels.VerifyOtpViewModel
+@{
+    ViewData["Title"] = "ยืนยันรหัส OTP | Easy Stay";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-primary">Easy Stay</h2>
+            </div>
+
+            <div class="card shadow-sm border-0 text-center">
+                <div class="card-body p-5">
+                    <h5 class="fw-bold">ขั้นตอนที่ 2: กรอก OTP</h5>
+                    <p class="text-success fw-bold fs-5 mt-3">
+                        @ViewBag.UserName
+                    </p>
+                    <p class="text-muted mb-4">
+    กรอกรหัส 6 หลักที่ส่งไปยังอีเมล <strong>@ViewBag.UserEmail</strong>
+                    </p>
+                    <form asp-controller="Account" asp-action="VerifyOtp" method="post">
+                        <!-- ซ่อน Email ไว้เพื่อส่งค่ากลับไปยัง Controller -->
+                        <input type="hidden" asp-for="Email" />
+
+                        <div class="mb-4">
+                            <input asp-for="OtpCode" type="text" class="form-control form-control-lg text-center fw-bold fs-4 border-primary" placeholder=" _  _  _  _  _  _" maxlength="6" style="letter-spacing: 10px;">
+                        </div>
+
+                        <p class="text-danger small mb-4">เหลือเวลา 01:45 นาที</p>
+
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mb-3">ยืนยัน OTP</button>
+                        
+                        <a href="#" class="text-decoration-none text-muted small">ไม่ได้รับรหัส? ส่งรหัสอีกครั้ง</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
